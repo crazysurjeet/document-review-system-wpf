@@ -1,0 +1,126 @@
+﻿<Window x:Class="FileUploadSample.Views.FileList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        xmlns:local="clr-namespace:FileUploadSample.Views"
+        mc:Ignorable="d"
+        Title="List of all files"
+        WindowState="Maximized"
+        WindowStyle="ThreeDBorderWindow"
+        Background="#0181b2"
+        >
+    <Window.Resources>
+        <Style TargetType="mui:BBCodeBlock" x:Key="BBBlockStyle">
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+        <Style TargetType="Label" x:Key="ListLabelStyle">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="SPStyle">
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+    </Window.Resources>
+    <WrapPanel Orientation="Horizontal">
+        <ScrollViewer>
+            <ItemsControl Name="FilesItemControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal" Width ="400" Height="300">
+                            <Border Margin="30,30,30,30"  Width ="400" Height="300" >
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="#CCCCCC"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsParsingCompleted}" Value="true">
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="#66CCFF" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                                <Setter Property="BorderThickness" Value="3"/>
+                                                <Setter Property="BorderBrush">
+                                                    <Setter.Value>
+                                                        <SolidColorBrush Color="Black" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Button Click="Button_Click" Width ="400" Height="300" >
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1*" />
+                                                    <RowDefinition Height="1*" />
+                                                    <RowDefinition Height="1*" />
+                                                    <RowDefinition Height="1*" />
+                                                    <RowDefinition Height="1*" />
+                                                    <RowDefinition Height="1*" />
+                                                </Grid.RowDefinitions>
+                                                <Border Grid.Row="0" BorderThickness="2" BorderBrush="#FF9900" Background="#FFFFFF">
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="#FF9900"/>
+                                                    </Border.Effect>
+                                                    <StackPanel Style="{StaticResource SPStyle}" >
+                                                        <Label Content=" File Name : " Style="{StaticResource ListLabelStyle}"/>
+                                                        <TextBlock  Text="{Binding FileName}" Style="{StaticResource Heading2}" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <StackPanel Grid.Row="1" Style="{StaticResource SPStyle}">
+                                                    <Label Content=" Is File Processed ? " Style="{StaticResource ListLabelStyle}"/>
+                                                    <mui:BBCodeBlock BBCode="{Binding IsParsingCompleted}" Margin="10" Style="{StaticResource BBBlockStyle}"/>
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="2" Style="{StaticResource SPStyle}">
+                                                    <Label Content=" Occurences of Spelling mistakes : " Style="{StaticResource ListLabelStyle}"/>
+                                                    <mui:BBCodeBlock BBCode="{Binding SpellCheckCount}" Margin="10" Style="{StaticResource BBBlockStyle}" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="3" Style="{StaticResource SPStyle}">
+                                                    <Label Content=" Occurences of Double spaces : " Style="{StaticResource ListLabelStyle}"/>
+                                                    <mui:BBCodeBlock BBCode="{Binding SpaceCheckCount}" Margin="10" Style="{StaticResource BBBlockStyle}" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="4" Style="{StaticResource SPStyle}">
+                                                    <Label Content=" Occurences of Branding errors : " Style="{StaticResource ListLabelStyle}"/>
+                                                    <mui:BBCodeBlock BBCode="{Binding BrandCheckCount}" Margin="10" Style="{StaticResource BBBlockStyle}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsParsingCompleted}" Value="true">
+                                                    <Setter Property="IsEnabled" Value="True"/>
+                                                    <Setter Property="BorderBrush">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                                                                <GradientStop Color="#00000000" Offset="0"/>
+                                                                <GradientStop Color="#FFFFFFFF" Offset="0.567"/>
+                                                            </LinearGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Border>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                
+            </ItemsControl>
+        </ScrollViewer>
+    </WrapPanel>
+</Window>

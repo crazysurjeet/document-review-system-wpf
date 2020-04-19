@@ -1,0 +1,23 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WPF_CustomFileControl">
+    
+    <Style TargetType="{x:Type local:FileUploadCustomControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:FileUploadCustomControl}">
+                    <Border Background="WhiteSmoke"
+                            BorderBrush="White"
+                            BorderThickness="2">
+                        <StackPanel Orientation="Horizontal"
+                                    Width="500">
+                            <TextBox Name="TXT_FILE_NAME" Width="350" IsReadOnly="True"/>
+                            <Button Name="BTN_BROWSE_FILE" Width="150" Content="Browse"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

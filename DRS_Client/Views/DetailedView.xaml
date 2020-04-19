@@ -1,0 +1,58 @@
+﻿<Window x:Class="FileUploadSample.Views.DetailedView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileUploadSample.Views"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        mc:Ignorable="d"
+        WindowStyle="ThreeDBorderWindow"
+        WindowState="Maximized"
+        Background="#0181b2"
+        Title="File Detail">
+    <Grid>
+        <ScrollViewer>
+            <ItemsControl Name="FileDetailItemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Vertical">
+                            <Border Margin="30,30,30,30" >
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="White"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Border BorderThickness="2" BorderBrush="#FF9900" Background="#FFFFFF">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="#FF9900"/>
+                                        </Border.Effect>
+                                        <WrapPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+                                            <TextBlock Text="{Binding TypeName}" Style="{StaticResource Heading1}" />
+                                            <TextBlock Style="{StaticResource Heading1}"> :</TextBlock>
+                                            <TextBlock Text="{Binding Count}" Style="{StaticResource Heading1}" />
+                                            <Separator Width="20" Background="Transparent"/>
+                                            <!--<TextBlock Style="{StaticResource Heading1}">&nbsp;</TextBlock>-->
+                                            <Button Content="Correct" IsEnabled="{Binding IsEnabled}" Click="btnCorrect_Click"/>
+                                        </WrapPanel>
+                                    </Border>
+                                    <mui:BBCodeBlock Grid.Row="3" BBCode="{Binding UpdatedContent}" Margin="10" FontSize="15" />
+                                </Grid>
+                            </Border>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>
