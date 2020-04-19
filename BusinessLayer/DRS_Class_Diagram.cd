@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BusinessLayer.Diagnostics.Logger" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAJAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Diagnostics\Logger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BusinessLayer.Dictionary.Word">
+    <Position X="20.75" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAACAAAAAA=</HashCode>
+      <FileName>Dictionary\Word.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.Dictionary.WordDictionary">
+    <Position X="20.5" Y="2" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAICAAIQAgAASAAAACAAAAAAAAAAABCEAASAA=</HashCode>
+      <FileName>Dictionary\WordDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.FileHelpers.FileBase">
+    <Position X="3.75" Y="3.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAiCIAAAgwAAABEIAAAAAAAgEAAAACAAgBAgABAAAA=</HashCode>
+      <FileName>FileHelpers\FileBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BusinessLayer.FileHelpers.FileElement">
+    <Position X="1.75" Y="6.75" Width="1.25" />
+    <InheritanceLine Type="BusinessLayer.FileHelpers.FileBase" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="7.812" />
+        <Point X="3" Y="7.812" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileHelpers\FileBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.FileHelpers.ExcelFile">
+    <Position X="2.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileHelpers\FileBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.FileHelpers.ImageFile">
+    <Position X="4.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileHelpers\FileBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.FileHelpers.WordFile">
+    <Position X="0.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileHelpers\FileBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.OperationHelpers.Mediator">
+    <Position X="13.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAgAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OperationHelpers\Mediator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.OperationHelpers.VisitorBase">
+    <Position X="10" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQQAJAEAAAQAgAAAABAAAgAACAAIAAA=</HashCode>
+      <FileName>OperationHelpers\Visitors.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BusinessLayer.OperationHelpers.SpellCheckVisitor">
+    <Position X="7.75" Y="9.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OperationHelpers\Visitors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.OperationHelpers.DoubleSpaceCheckVisitor">
+    <Position X="11" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OperationHelpers\Visitors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.OperationHelpers.BrandNameCheckVisitor">
+    <Position X="14" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAQAAAAQAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>OperationHelpers\Visitors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusinessLayer.OperationHelpers.EnglishUKCheckVisitor">
+    <Position X="17" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OperationHelpers\Visitors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="BusinessLayer.Diagnostics.ILogger">
+    <Position X="19.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Diagnostics\Logger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

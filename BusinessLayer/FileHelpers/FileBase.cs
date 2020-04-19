@@ -45,7 +45,6 @@ namespace BusinessLayer.FileHelpers
                 OnPropertyChanged(nameof(IsParsingCompleted));
             }
         }
-        public FileTypeBase FileType { get; set; }
         public abstract void Parse();
         public void OnPropertyChanged(string PropertyName)
         {

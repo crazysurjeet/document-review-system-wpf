@@ -82,7 +82,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FileHelpers\FileBase.cs" />
-    <Compile Include="FileHelpers\FileTypeBase.cs" />
     <Compile Include="OperationHelpers\Mediator.cs" />
     <Compile Include="OperationHelpers\Visitors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +90,7 @@
     <Content Include="Dictionary\english.dict">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="DRS_Class_Diagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
