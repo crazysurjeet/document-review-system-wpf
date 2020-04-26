@@ -58,7 +58,12 @@
     <Reference Include="IronOcr, Version=4.2.0.20141, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IronOcr.4.2.0.0\lib\net40\IronOcr.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -84,6 +89,7 @@
     <Compile Include="FileHelpers\FileBase.cs" />
     <Compile Include="OperationHelpers\Mediator.cs" />
     <Compile Include="OperationHelpers\Visitors.cs" />
+    <Compile Include="PivotHelpers\PivotBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

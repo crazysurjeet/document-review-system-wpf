@@ -9,7 +9,7 @@ using FileUploadSample.Views;
 
 namespace FileUploadSample.ViewModels
 {
-    public class FileViewModel
+    public class FileViewModel:ViewModelBase
     {
         public IEnumerable<FileBase> files = new List<FileBase>();
         FileList fileList; 

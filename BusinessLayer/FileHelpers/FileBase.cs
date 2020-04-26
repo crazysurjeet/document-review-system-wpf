@@ -5,12 +5,17 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using BusinessLayer.OperationHelpers;
+using BusinessLayer.PivotHelpers;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.ComponentModel;
 using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing;
+using System.Configuration;
 
 namespace BusinessLayer.FileHelpers
 {
@@ -76,30 +81,90 @@ namespace BusinessLayer.FileHelpers
     }
     public class ExcelFile : FileElement
     {
-        public ExcelFile(string FilePath):base(FilePath)
-        {
-
-        }
-        public override void Parse()
-        {
-            using (SpreadsheetDocument doc = SpreadsheetDocument.Open(FilePath, true))
+        private readonly string COUNTRY_COLUMN;
+        private DataTable allData = new DataTable();
+        public DataTable AllData
+        { 
+            get 
+            { 
+                return allData; 
+            }
+            set
             {
-                WorkbookPart workbookPart = doc.WorkbookPart;
-                WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
-                SheetData sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
-                string text= string.Empty;
-                foreach (Row r in sheetData.Elements<Row>())
-                {
-                    foreach (Cell c in r.Elements<Cell>())
-                    {
-                        text += c.CellValue?.Text +" ";
-                    }
-                }
-                this.Content = new StringBuilder(text);
-
+                allData = value;
+            }
+        }
+        private DataTable processedData = new DataTable();
+        public DataTable ProcessedData
+        {
+            get
+            {
+                return processedData;
+            }
+            set
+            {
+                processedData = value;
+                OnPropertyChanged(nameof(ProcessedData));
             }
         }
 
+        public ExcelFile(string FilePath):base(FilePath)
+        {
+            COUNTRY_COLUMN= ConfigurationManager.AppSettings["COUNTRY_COLUMN"];
+        }
+        public override void Parse()
+        {
+            SpellCheckCount = -1;
+            SpaceCheckCount = -1;
+            BrandCheckCount = -1;
+            allData = ReadExcel();
+        }
+        public DataTable ReadExcel()
+        {
+            string conn = string.Empty;
+            DataTable dtexcel = new DataTable();
+            var fileExt = Path.GetExtension(this.FilePath);
+            if (fileExt.CompareTo(".xls") == 0)
+                conn = @"provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + this.FilePath + ";Extended Properties='Excel 8.0;HRD=Yes;IMEX=1';";
+            else
+                conn = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + this.FilePath + ";Extended Properties='Excel 12.0;HDR=Yes;IMEX=1';";
+            using (OleDbConnection con = new OleDbConnection(conn))
+            {
+                try
+                {
+                    OleDbDataAdapter oleAdpt = new OleDbDataAdapter("select * from [Sheet1$]", con);
+                    oleAdpt.Fill(dtexcel);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception($"Exception occured while storing records to DataSet - {e.Message}");
+                }
+            }
+            return dtexcel;
+        }
+        public IEnumerable<string> GetCountries()
+        {
+            return allData.AsEnumerable().Select(row => row.Field<String>(COUNTRY_COLUMN)).Distinct().OrderBy(x=>x);
+        }
+        public void ProcessExcel(string country)
+        {
+            try
+            {
+                var tempData = allData.AsEnumerable()
+                                .Where(row => row.Field<String>(COUNTRY_COLUMN) == country)
+                                .CopyToDataTable();
+
+                string x = ConfigurationManager.AppSettings["PIVOT_COLUMN_X"];
+                string y = ConfigurationManager.AppSettings["PIVOT_COLUMN_Y"];
+                string z = ConfigurationManager.AppSettings["PIVOT_COLUMN_Z"];
+
+                processedData = PivotBase.ProcessClientAssetData(tempData, x, y, z);
+            }
+            catch(Exception e)
+            {
+                throw new Exception($"Exception occured while applying filter to recordset - {e.Message}");
+            }
+        }
     }
     public class ImageFile : FileElement
     {
@@ -135,7 +200,7 @@ namespace BusinessLayer.FileHelpers
         {
             try
             {
-                string filename = "test.docx";
+                string filename = "UpdatedDoc.docx";
                 using (WordprocessingDocument wordDoc = WordprocessingDocument.Create(filename, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
                 {
                     MainDocumentPart mainPart = wordDoc.AddMainDocumentPart();
@@ -144,7 +209,6 @@ namespace BusinessLayer.FileHelpers
                     Paragraph para = body.AppendChild(new Paragraph());
                     Run run = para.AppendChild(new Run());
                     run.AppendChild(new Text(UpdatedContent.ToString()));
-
                 }
             }
             catch(Exception)

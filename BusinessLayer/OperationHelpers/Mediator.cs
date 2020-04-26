@@ -24,22 +24,28 @@ namespace BusinessLayer.OperationHelpers
         public void Process(FileBase _file)
         {
             Task t = Task.Factory.StartNew(()=> _file.Parse());
-            t= t.ContinueWith((x)=>
+            
+            if (_file.GetType() != typeof(ExcelFile))
             {
-                visitors[typeof(SpellCheckVisitor)].Visit(_file);
-            });
-            t = t.ContinueWith((x) =>
-            {
-                visitors[typeof(DoubleSpaceCheckVisitor)].Visit(_file);
-            });
-            t = t.ContinueWith((x) =>
-            {
-                visitors[typeof(BrandNameCheckVisitor)].Visit(_file);
-            });
+                t = t.ContinueWith((x) =>
+                 {
+                     visitors[typeof(SpellCheckVisitor)].Visit(_file);
+                 });
+                t = t.ContinueWith((x) =>
+                {
+                    visitors[typeof(DoubleSpaceCheckVisitor)].Visit(_file);
+                });
+                t = t.ContinueWith((x) =>
+                {
+                    visitors[typeof(BrandNameCheckVisitor)].Visit(_file);
+                });
+            }
+            
             t = t.ContinueWith((x) =>
             {
                 _file.IsParsingCompleted = true;
             });
+            
         }
     }
 }

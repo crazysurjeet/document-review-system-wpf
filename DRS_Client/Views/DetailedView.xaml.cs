@@ -37,9 +37,10 @@ namespace FileUploadSample.Views
 
         private void btnCorrect_Click(object sender, RoutedEventArgs e)
         {
+            string filename = "UpdatedDoc.docx";
             var visitor = (VisitorBase)(sender as Button).DataContext;
             visitor.Correct(this.fileBase);
-            MessageBox.Show("Content saved to test.docx");
+            MessageBox.Show($"Content saved to {filename}");
         }
     }
 }

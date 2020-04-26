@@ -10,6 +10,7 @@
         Title="Document Review System- Surajit Karmakar"
         WindowStyle="SingleBorderWindow"
         WindowState="Maximized"
+        Closed="MainWindow_Closed"
         >
     <Window.Background>
         <ImageBrush ImageSource="images/background-1.jpg"/>

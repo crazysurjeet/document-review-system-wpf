@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace BusinessLayer.Dictionary
 {
@@ -20,7 +21,7 @@ namespace BusinessLayer.Dictionary
 		private ArrayList _possibleBaseWords = new ArrayList();
 		private Hashtable _userWords = new Hashtable();
 		private System.ComponentModel.Container components = null;
-		public const string ERROR_COLOR = "RED";
+		public readonly string ERROR_COLOR = ConfigurationManager.AppSettings["ERROR_COLOR"];
 
 		public WordDictionary()
 		{

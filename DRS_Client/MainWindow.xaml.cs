@@ -61,6 +61,7 @@ namespace FileUploadSample
                 var currentMediator = new Mediator();
                 currentMediator.Initialize();
                 currentMediator.Process(temp);
+
                 DrsMediators.Add(temp,currentMediator);
             }
             FileList fileListWindow = new FileList(filesCollection, this);
@@ -68,6 +69,12 @@ namespace FileUploadSample
             fileListWindow.Show();
             //var extensions = fileUpload.FileNames.Select(x => Path.GetExtension(x));
 
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Current.Shutdown();
         }
     }
 }

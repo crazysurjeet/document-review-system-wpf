@@ -23,57 +23,33 @@ namespace FileUploadSample.Views
     /// </summary>
     public partial class FileList : Window
     {
-        BackgroundWorker worker;
         public HashSet<FileBase> collection;
         public MainWindow _mainWindow;
         public FileList(HashSet<FileBase> collection, MainWindow _mainWindow)
         {
             this.collection = collection;
             this._mainWindow = _mainWindow;
-
             InitializeComponent();
             FilesItemControl.ItemsSource = new FileViewModel(this).files;
-            //worker = new BackgroundWorker();
-            //worker.WorkerReportsProgress = true;
-            //worker.DoWork += worker_DoWork;
-            //worker.ProgressChanged += worker_ProgressChanged;
-            //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-            //worker.RunWorkerAsync();
         }
-        void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var count = collection.Count();
-            Dispatcher.Invoke(() =>
-                {
-                    bool flag = true;
-                    while (flag)
-                    {
-                        for (int i = 1; i <= count; i++)
-                        {
-                            if (collection.ElementAt(i - 1).IsParsingCompleted) { flag = false; (sender as BackgroundWorker).ReportProgress(i / count * 100); }
-                        }
-                    }
-                }
-            );
-
-		}
-
-		void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-		{ 
-            //CalculationInProgress.Value = e.ProgressPercentage;	
-		}
-
-		void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-            MessageBox.Show("Files processed successfully");
-		}
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            DetailedView detailedView = new DetailedView((FileBase)(sender as Button).DataContext,this);
-            detailedView.Show();
-            //this.Hide();
+            var senderObj = (sender as Button).DataContext;
+            if (senderObj is ExcelFile)
+            {
+                ExcelReport excelReport = new ExcelReport((FileBase)senderObj);
+                excelReport.Show();
+            }
+            else
+            {
+                DetailedView detailedView = new DetailedView((FileBase)senderObj, this);
+                detailedView.Show();
+            }
+        }
+        private void FileListWindow_Closed(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Current.Shutdown();
         }
     }
 }

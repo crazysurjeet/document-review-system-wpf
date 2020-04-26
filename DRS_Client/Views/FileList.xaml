@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         xmlns:local="clr-namespace:FileUploadSample.Views"
+        xmlns:converters="clr-namespace:FileUploadSample.Converters"
         mc:Ignorable="d"
         Title="List of all files"
         WindowState="Maximized"
         WindowStyle="ThreeDBorderWindow"
         Background="#0181b2"
+        Closed="FileListWindow_Closed"
         >
     <Window.Resources>
         <Style TargetType="mui:BBCodeBlock" x:Key="BBBlockStyle">
@@ -22,6 +24,7 @@
         <Style TargetType="StackPanel" x:Key="SPStyle">
             <Setter Property="Orientation" Value="Horizontal"/>
         </Style>
+        <converters:NumberConverter x:Key="NumberConverter"/>
     </Window.Resources>
     <WrapPanel Orientation="Horizontal">
         <ScrollViewer>
@@ -83,15 +86,15 @@
                                                 </StackPanel>
                                                 <StackPanel Grid.Row="2" Style="{StaticResource SPStyle}">
                                                     <Label Content=" Occurences of Spelling mistakes : " Style="{StaticResource ListLabelStyle}"/>
-                                                    <mui:BBCodeBlock BBCode="{Binding SpellCheckCount}" Margin="10" Style="{StaticResource BBBlockStyle}" />
+                                                    <mui:BBCodeBlock BBCode="{Binding Path=SpellCheckCount,Converter={StaticResource NumberConverter}}" Margin="10" Style="{StaticResource BBBlockStyle}" />
                                                 </StackPanel>
                                                 <StackPanel Grid.Row="3" Style="{StaticResource SPStyle}">
                                                     <Label Content=" Occurences of Double spaces : " Style="{StaticResource ListLabelStyle}"/>
-                                                    <mui:BBCodeBlock BBCode="{Binding SpaceCheckCount}" Margin="10" Style="{StaticResource BBBlockStyle}" />
+                                                    <mui:BBCodeBlock BBCode="{Binding Path=SpaceCheckCount,Converter={StaticResource NumberConverter}}" Margin="10" Style="{StaticResource BBBlockStyle}" />
                                                 </StackPanel>
                                                 <StackPanel Grid.Row="4" Style="{StaticResource SPStyle}">
                                                     <Label Content=" Occurences of Branding errors : " Style="{StaticResource ListLabelStyle}"/>
-                                                    <mui:BBCodeBlock BBCode="{Binding BrandCheckCount}" Margin="10" Style="{StaticResource BBBlockStyle}" />
+                                                    <mui:BBCodeBlock BBCode="{Binding Path=BrandCheckCount,Converter={StaticResource NumberConverter}}" Margin="10" Style="{StaticResource BBBlockStyle}" />
                                                 </StackPanel>
                                             </Grid>
                                         </ControlTemplate>

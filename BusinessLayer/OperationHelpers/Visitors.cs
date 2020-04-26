@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessLayer.FileHelpers;
 using BusinessLayer.Dictionary;
 using System.ComponentModel;
+using System.Configuration;
 
 namespace BusinessLayer.OperationHelpers
 {
@@ -23,7 +24,7 @@ namespace BusinessLayer.OperationHelpers
         public long Count { get { return count; } set { count = value; OnPropertyChanged(nameof(Count)); } }
         private bool isEnabled = false;
         public bool IsEnabled { get { return isEnabled; } set { isEnabled = value; OnPropertyChanged(nameof(IsEnabled)); } }
-        public const string ERROR_COLOR= "RED";
+        public readonly string ERROR_COLOR= ConfigurationManager.AppSettings["ERROR_COLOR"];
         public virtual void Correct(FileBase fileBase)
         {
             //TODO: this will be overridden by all subclasses
@@ -156,7 +157,7 @@ namespace BusinessLayer.OperationHelpers
             var temp = fileBase.Content;
             int index=0;
             int pointer = 1;
-            char[] brand = "JPMorgan Chase & Co. ".ToCharArray();
+            char[] brand = ConfigurationManager.AppSettings["BRAND_NAME"].ToCharArray();
             int start = 0;
             while (index >= 0)
             {
@@ -174,7 +175,7 @@ namespace BusinessLayer.OperationHelpers
                         if((index - start) > pointer)
                         {
                             temp = temp.Remove(start, index - start);
-                            temp = temp.Insert(start, new string(brand));
+                            temp = temp.Insert(start, string.Concat(" ",new string(brand)));
                             count++;
                         }
                         pointer = 1;
@@ -195,7 +196,7 @@ namespace BusinessLayer.OperationHelpers
                     if (pointer >= 7)
                     {
                         temp = temp.Remove(start, index - start);
-                        temp = temp.Insert(start, new string(brand));
+                        temp = temp.Insert(start, string.Concat(" ", new string(brand)));
                         count++;
                     }
                     pointer = 1;
